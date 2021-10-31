@@ -55,7 +55,6 @@ class SignupController extends Controller
         $phone = $request->phone;
         $profile_pic = $request->profile_pic;
         $is_admin = '0';
-        // dd($profile_pic);
 
         $user = User::create([
             'email' => $email,
