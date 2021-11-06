@@ -548,50 +548,50 @@
   </script>
 
   <script>
-            $('#picture').change(function(){
-                var file_data = $('#picture').prop('files')[0];
-                var form_data = new FormData();
-                form_data.append('file', file_data);
-                $.ajax({
-                    headers:{'X-CSRF-Token':$('meta[name=csrf_token]').attr('content')},
-                    url: "{{ route('upload') }}",
-                    type: "POST",
-                    data: form_data,
-                    contentType: false,
-                    cache: false,
-                    processData:false,
-                    success: function(data){
-                        console.log(data);
-                        $('#image').attr('src', 'storage/uploads/'+data);
-                    }
-                });
-            });
-
-
-        $('#edit_details').validate({
-            rules: {
-                first_name: 'required',
-                last_name: 'required',
-                email: {
-                    required: true,
-                    email: true
-                },
-                birthday: 'required',
-                gender: 'required',
-                phone: 'required'
-            },
-            messages: {
-                first_name: 'First name is required.',
-                last_name: 'Last name is required.',
-                email: {
-                    required: 'Email is required',
-                    email: 'Please enter an Email'
-                },
-                birthday: 'Birthday is required',
-                gender: 'Gender is required',
-                phone: 'Phone is required'
+    $('#picture').change(function(){
+        var file_data = $('#picture').prop('files')[0];
+        var form_data = new FormData();
+        form_data.append('file', file_data);
+        $.ajax({
+            headers:{'X-CSRF-Token':$('meta[name=csrf_token]').attr('content')},
+            url: "{{ route('upload') }}",
+            type: "POST",
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(data){
+                console.log(data);
+                $('#image').attr('src', 'storage/uploads/'+data);
             }
         });
+    });
+
+
+    $('#edit_details').validate({
+        rules: {
+            first_name: 'required',
+            last_name: 'required',
+            email: {
+                required: true,
+                email: true
+            },
+            birthday: 'required',
+            gender: 'required',
+            phone: 'required'
+        },
+        messages: {
+            first_name: 'First name is required.',
+            last_name: 'Last name is required.',
+            email: {
+                required: 'Email is required',
+                email: 'Please enter an Email'
+            },
+            birthday: 'Birthday is required',
+            gender: 'Gender is required',
+            phone: 'Phone is required'
+        }
+    });
 
   </script>
 </body>
