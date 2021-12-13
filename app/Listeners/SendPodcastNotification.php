@@ -2,9 +2,12 @@
 
 namespace App\Listeners;
 
+use App\Mail\VerifyUser;
 use App\Events\PodcastProcessed;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Mail;
+
 
 class SendPodcastNotification
 {
@@ -26,6 +29,6 @@ class SendPodcastNotification
      */
     public function handle(PodcastProcessed $event)
     {
-        //
+        Mail::to($event->email)->send(new VerifyUser());
     }
 }

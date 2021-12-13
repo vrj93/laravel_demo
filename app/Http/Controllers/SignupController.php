@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PodcastProcessed;
+use App\Mail\VerifyUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Mail;
 
 class SignupController extends Controller
 {
@@ -76,6 +80,8 @@ class SignupController extends Controller
 
         if($user->save())
         {
+            PodcastProcessed::dispatch($email);
+            // event(new PodcastProcessed($request->email));
             return redirect()->route('login');
         }
         else
