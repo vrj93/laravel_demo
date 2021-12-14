@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\PodcastProcessed;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;

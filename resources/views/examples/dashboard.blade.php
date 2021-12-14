@@ -148,10 +148,16 @@
             </a>
         </div>
         <ul class="nav">
-          <li class="active ">
+          <li class={{ (request()->segment(1) == 'dashboard') ? "active":"" }}>
             <a href="">
               <i class="tim-icons icon-chart-pie-36"></i>
               <p>User Profile</p>
+            </a>
+          </li>
+          <li class={{ (request()->segment(1) == 'posts') ? "active":"" }}>
+            <a href={{ route('posts') }}>
+              <i class="tim-icons icon-chart-pie-36"></i>
+              <p>Posts</p>
             </a>
           </li>
         </ul>
