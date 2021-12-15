@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <title>
-    {{__('title.admin_dashboard')}}
+    {{__('title.user_dashboard')}}
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
@@ -61,7 +61,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:void(0)">{{__('title.admin_dashboard')}}</a>
+            <a class="navbar-brand" href="javascript:void(0)">{{__('title.user_dashboard')}}</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -84,11 +84,11 @@
                   <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Profile</a></li>
                   <li class="dropdown-divider"></li>
                   <li class="nav-link">
-                      <a href="{{ route('admindashboard') }}" class="nav-item dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                      <a href="{{ route('logout') }}" class="nav-item dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         Log out
                       </a>
 
-                      <form id="logout-form" action="{{ route('admindashboard') }}" method="POST" style="display: none;">
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         {{ csrf_field() }}
                       </form>
                   </li>
@@ -128,13 +128,26 @@
                                     <a href="" class="btn" name="btnAddMore" data-toggle="modal" data-target="#modalContactForm" style="float: right; margin-right:20%;">Create Post</a>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="table-wrap">
-                                        <h4>No Post found</h4>
+                            @if(!empty($posts))
+                                @foreach($posts as $post)
+                                    <div class="row" style="margin-bottom: 3%;">
+                                        <div class="col-md-12">
+                                            <div class="table-wrap">
+                                                <h4 style="color: #BF40BF"><b>{{ $post->title }}</b></h4>
+                                                <p>{{ $post->post }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-wrap">
+                                            <h4>No Post found</h4>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                     </section>
                 </div>

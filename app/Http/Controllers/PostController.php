@@ -12,7 +12,9 @@ class PostController extends Controller
     {
         $email = session('email');
         $user = User::where('email', $email)->first();
-        return view('examples.posts')->with('user', $user);
+        $posts = User::find($user->id)->posts;
+
+        return view('examples.posts')->with(['user' => $user, 'posts' => $posts]);
     }
 
     public function store(Request $request)
