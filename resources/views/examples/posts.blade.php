@@ -141,8 +141,12 @@
                                                 <div class="container" style="float:right; width:50%; margin-top:20px">
                                                     <ul class="list-inline" style="float:right">
                                                         <a href="" data-toggle="modal" data-target="#modalContactForm_edit" onclick="Edit({{$post->id}}, '{{$post->title}}', '{{$post->post}}')"><li style="margin-bottom:5px; color:#00ff00"><i class="fas fa-pencil-alt"></i></li></a>
-
-                                                        <a href=""><li><i class="fas fa-trash-alt" style="color: red"></i></li></a>
+                                                        <form action="{{ route('delete-post', [$post->id]) }}" method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button style="background-color: transparent; border:none;" onclick="return confirm('Are you sure you want to remove this post?');"><li><i class="fas fa-trash-alt" style="color: red"></i></li>
+                                                            </button>
+                                                        </form>
                                                     </ul>
                                                 </div>
                                             </div>
