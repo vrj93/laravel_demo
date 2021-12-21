@@ -33,7 +33,6 @@ class DashboardController extends Controller
 
     public function imageupload(Request $request)
     {
-        // dd($request->file);
         $email = session('email');
         $user = User::where('email', $email)->first();
 

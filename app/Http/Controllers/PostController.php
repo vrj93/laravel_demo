@@ -39,4 +39,19 @@ class PostController extends Controller
             return redirect()->route('posts');
         }
     }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'title_e' => ['required'],
+            'post_e' => ['required']
+        ]);
+
+        Post::where('id', $request->post_id)->update([
+            'title' => $request->title_e,
+            'post' => $request->post_e
+        ]);
+
+        return redirect()->route('posts');
+    }
 }

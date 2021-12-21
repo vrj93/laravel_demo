@@ -10,6 +10,7 @@
     {{__('title.user_dashboard')}}
   </title>
   <!--     Fonts and icons     -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   <!-- Nucleo Icons -->
@@ -43,7 +44,7 @@
           <li class={{ (request()->segment(1) == 'posts') ? "active":"" }}>
             <a href={{ route('posts') }}>
               <i class="tim-icons icon-single-02"></i>
-              <p>Posts</p>
+              <p>My Posts</p>
             </a>
           </li>
         </ul>
@@ -128,13 +129,22 @@
                                     <a href="" class="btn" name="btnAddMore" data-toggle="modal" data-target="#modalContactForm" style="float: right; margin-right:20%;">Create Post</a>
                                 </div>
                             </div>
-                            @if(!empty($posts))
+                            @if(!$posts->isEmpty())
                                 @foreach($posts as $post)
-                                    <div class="row" style="margin-bottom: 3%;">
+                                    <div class="row" style="width:60%; margin-bottom:3%; border:1px solid #BF40BF;">
                                         <div class="col-md-12">
                                             <div class="table-wrap">
-                                                <h4 style="color: #BF40BF"><b>{{ $post->title }}</b></h4>
-                                                <p>{{ $post->post }}</p>
+                                                <div style="float:left; width:50%">
+                                                    <h4 style="color: #BF40BF; margin-top:10px"><b>{{ $post->title }}</b></h4>
+                                                    <p style="margin-bottom: 10px">{{ $post->post }}</p>
+                                                </div>
+                                                <div class="container" style="float:right; width:50%; margin-top:20px">
+                                                    <ul class="list-inline" style="float:right">
+                                                        <a href="" data-toggle="modal" data-target="#modalContactForm_edit" onclick="Edit({{$post->id}}, '{{$post->title}}', '{{$post->post}}')"><li style="margin-bottom:5px; color:#00ff00"><i class="fas fa-pencil-alt"></i></li></a>
+
+                                                        <a href=""><li><i class="fas fa-trash-alt" style="color: red"></i></li></a>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -185,6 +195,7 @@
     </div>
   </div>
 
+  {{-- Create post model --}}
   <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -212,7 +223,37 @@
                 </div>
             </div>
         </form>
+    </div>
+  </div>
 
+  {{-- Edit post model --}}
+  <div class="modal fade" id="modalContactForm_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form method="POST" id="form_post_edit" action="{{ route('edit-post') }}">
+            @csrf
+            <input type="hidden" name="post_id" id="post_id" value="">
+            <div class="modal-content" style="background-color: #202020">
+                <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold" style="color: #BF40BF;">Edit Post</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-3">
+                        <h4 data-error="wrong" data-success="right" for="form34">Title</h4>
+                        <input type="text" name="title_e" id="title_e" value="" class="form-control validate">
+                    </div>
+                    <div class="md-form mb-3">
+                        <textarea name="post_e" id="post_e" cols="30" rows="30" class="form-control validate"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-unique" id="submit_post_e">Edit Post</button>
+                </div>
+            </div>
+        </form>
     </div>
   </div>
 
@@ -363,6 +404,24 @@
             post: 'post is required.'
         }
     });
+
+    $('#form_post_edit').validate({
+        rules: {
+            title_e: 'required',
+            post_e: 'required'
+        },
+        messages: {
+            title_e: 'title is required.',
+            post_e: 'post is required.'
+        }
+    });
+
+    function Edit(id, title, post)
+    {
+        $('#post_id').val(id);
+        $('#title_e').val(title);
+        $('#post_e').val(post);
+    }
 
   </script>
 </body>
