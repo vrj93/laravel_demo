@@ -156,7 +156,7 @@
           </li>
           <li class={{ (request()->segment(1) == 'posts') ? "active":"" }}>
             <a href={{ route('posts') }}>
-              <i class="tim-icons icon-chart-pie-36"></i>
+              <i class="tim-icons icon-single-02"></i>
               <p>My Posts</p>
             </a>
           </li>
