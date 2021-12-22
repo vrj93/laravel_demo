@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\CreatePost;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,6 +20,8 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        $email = session('email');
+
         $request->validate([
             'title' => ['required'],
             'post' => ['required']
@@ -36,6 +39,7 @@ class PostController extends Controller
 
         if($created->save())
         {
+            dispatch(new CreatePost($email))->delay(now()->addMinutes(1));
             return redirect()->route('posts');
         }
     }
