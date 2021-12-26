@@ -1,9 +1,11 @@
 <?php
 
-    if(!function_exists('vrj'))
+    if(!function_exists('vj'))
     {
-        function vrj()
+        function vj($variable)
         {
-            echo "Hello!";exit;
+            echo '<pre>';
+            print_r($variable);exit;
+            echo '<pre>';
         }
     }

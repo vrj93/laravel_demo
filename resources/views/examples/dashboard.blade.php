@@ -265,53 +265,63 @@
                                     <div class="tab-content profile-tab" id="myTabContent">
                                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <label>Name</label>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <p>{{ $user->name }}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <label>Email</label>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <p>{{ $user->email }}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <label>Birthday</label>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <?php $birthday = date('d M Y', strtotime($user->birthday)) ?>
-                                                            <p>{{ $birthday }}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <label>Gender</label>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <p>{{ $user->gender }}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <label>Phone</label>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <p>{{ $user->phone }}</p>
-                                                        </div>
-                                                    </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Name</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p>{{ $user->name }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Email</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p>{{ $user->email }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Birthday</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <?php $birthday = date('d M Y', strtotime($user->birthday)) ?>
+                                                    <p>{{ $birthday }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Gender</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p>{{ $user->gender }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Phone</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p>{{ $user->phone }}</p>
+                                                </div>
+                                            </div>
 
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </form>
+                        <div class="row">
+                            @role('reader')
+                                <h4>I am a reader.</h4>
+                            @endrole
+                        </div>
+                        <div class="row">
+                            @can('read articles')
+                                <h4>I can read articles.</h4>
+                            @endcan
+                        </div>
                     </div>
 
                 </div>

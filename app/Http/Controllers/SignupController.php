@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
+use Spatie\Permission\Contracts\Role;
 
 class SignupController extends Controller
 {
@@ -80,8 +81,11 @@ class SignupController extends Controller
 
         if($user->save())
         {
-            PodcastProcessed::dispatch($email);
-            // event(new PodcastProcessed($request->email));
+            $user->assignRole('reader');
+            $user->givePermissionTo('read articles');
+
+            PodcastProcessed::dispatch($email); //event and listner
+            // event(new PodcastProcessed($request->email)); alternative way for event call.
             return redirect()->route('login');
         }
         else
