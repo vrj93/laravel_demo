@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Jobs\CreatePost;
 use App\Models\Post;
 use App\Models\User;
+use App\Notifications\MyFirstNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class PostController extends Controller
 {
@@ -37,9 +39,19 @@ class PostController extends Controller
             'post' => $post
         ]);
 
+        $user = User::find($user_id);
+
+        $details = [
+            'data' => $title,
+            'notifiable_id' => $user_id
+        ];
+
         if($created->save())
         {
-            dispatch(new CreatePost($email))->delay(now()->addMinutes(1));
+            dispatch(new CreatePost($email))->delay(now()->addMinutes(1)); //Queue
+
+            Notification::send($user, new MyFirstNotification($details)); //Notification
+
             return redirect()->route('posts');
         }
     }
