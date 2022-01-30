@@ -58,9 +58,8 @@
 					</div>
 
                     <div class="validate-input mb-5" data-validate="Password is required">
-						<div class="g-recaptcha" data-sitekey="6LeMrhMeAAAAAJUmhgha0aeQ_cgCT2vvmUfI2ZBV"></div>
-                        {{--Recaptcha Secret key - 6LeMrhMeAAAAAB9UNMgNeYsDtF5op_RJp0q07Txd --}}
-						<span id="captcha" style="color:red"></span>
+						<div class="g-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY') }}"></div>
+                        <span id="captcha" style="color:red"></span>
 					</div>
 
 					<div class="container-login100-form-btn">
