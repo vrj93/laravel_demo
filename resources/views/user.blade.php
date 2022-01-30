@@ -26,13 +26,14 @@
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-				<form class="login100-form validate-form" method="POST" action={{ route('login') }}>
+				<form class="login100-form validate-form" method="POST" action={{ route('login') }} onsubmit="return GetAction();">
                     @csrf
 					<span class="login100-form-title p-b-49">
 						Login
@@ -56,6 +57,12 @@
 						</a>
 					</div>
 
+                    <div class="validate-input mb-5" data-validate="Password is required">
+						<div class="g-recaptcha" data-sitekey="6LeMrhMeAAAAAJUmhgha0aeQ_cgCT2vvmUfI2ZBV"></div>
+                        {{--Recaptcha Secret key - 6LeMrhMeAAAAAB9UNMgNeYsDtF5op_RJp0q07Txd --}}
+						<span id="captcha" style="color:red"></span>
+					</div>
+
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
@@ -69,7 +76,6 @@
 						<span class="txt1 p-b-17">
 							Or
 						</span>
-
 						<a href={{ route('signup') }} class="txt2">
 							<b>Sign Up</b>
 						</a>
@@ -78,7 +84,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<div id="dropDownSelect1"></div>
 
@@ -98,6 +103,23 @@
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+
+	<script>
+		function GetAction(form)
+		{
+			var v = grecaptcha.getResponse();
+			if(v.length == 0)
+			{
+				document.getElementById('captcha').innerHTML="You can't leave Captcha Code empty";
+				return false;
+			}
+			else
+			{
+				document.getElementById('captcha').innerHTML="Captcha completed";
+				return true;
+			}
+		}
+	</script>
 
 </body>
 </html>
