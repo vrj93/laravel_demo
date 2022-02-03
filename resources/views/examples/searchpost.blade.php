@@ -123,20 +123,11 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-6 mb-5 mt-3">
-                                    <h2 class="heading-section mt-10"><b>{{ __('title.posts') }}</b></h2>
-                                </div>
-                                <div class="col-md-6 mb-5 mt-3">
-                                    <form action="{{ route('search') }}" method="post">
-                                        @csrf
-                                        <input type="text" class="form-control" name="searchText" style="float: left; width: 200px; margin:6px 6px 0 0" placeholder="search...">
-                                        <button class="btn" name="search" style="float: left;">Search</button>
-                                    </form>
-
-                                    <a href="" class="btn" name="btnAddMore" data-toggle="modal" data-target="#modalContactForm" style="float: right;">Create Post</a>
+                                    <h2 class="heading-section mt-10"><b>Search Results</b></h2>
                                 </div>
                             </div>
-                            @if(!$posts->isEmpty())
-                                @foreach($posts as $post)
+                            @if(!$searchResult->isEmpty())
+                                @foreach($searchResult as $post)
                                     <div class="row" style="width:60%; margin-bottom:3%; border:1px solid #BF40BF;">
                                         <div class="col-md-12">
                                             <div class="table-wrap">
@@ -202,37 +193,6 @@
           <span class="color-label">DARK MODE</span>
         </li>
       </ul>
-    </div>
-  </div>
-
-  {{-- Create post model --}}
-  <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <form method="POST" id="form_post" action="{{ route('create-post') }}">
-            @csrf
-            <input type="hidden" name="user_id" value="{{ $user->id }}">
-            <div class="modal-content" style="background-color: #202020">
-                <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold" style="color: #BF40BF;">Create Post</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body mx-3">
-                    <div class="md-form mb-3">
-                        <h4 data-error="wrong" data-success="right" for="form34">Title</h4>
-                        <input type="text" name="title" id="title" value="" class="form-control validate">
-                    </div>
-                    <div class="md-form mb-3">
-                        <textarea name="post" id="post" cols="30" rows="30" class="form-control validate"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button class="btn btn-unique" id="submit_post">Post</button>
-                </div>
-            </div>
-        </form>
     </div>
   </div>
 

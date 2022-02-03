@@ -32,3 +32,4 @@ Route::get('/posts', [PostController::class, 'index'])->name('posts')->middlewar
 Route::post('/create-post', [PostController::class, 'store'])->name('create-post')->middleware('auth');
 Route::post('/edit-post', [PostController::class, 'update'])->name('edit-post')->middleware('auth');
 Route::delete('/delete-post/{id}', [PostController::class, 'delete'])->name('delete-post')->middleware('auth');
+Route::post('/search-post', [PostController::class, 'search'])->name('search')->middleware('auth');

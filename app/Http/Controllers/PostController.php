@@ -17,6 +17,9 @@ class PostController extends Controller
         $user = User::where('email', $email)->first();
         $posts = User::find($user->id)->posts;
 
+        $searchPost = new Post;
+        $searchPost->searchable();
+
         return view('examples.posts')->with(['user' => $user, 'posts' => $posts]);
     }
 
@@ -76,5 +79,11 @@ class PostController extends Controller
         Post::where('id', $id)->delete();
 
         return back();
+    }
+
+    public function search(Request $request)
+    {
+        $result = Post::search($request->searchText)->get();
+        return view('examples.searchpost')->with('searchResult', $result);
     }
 }
