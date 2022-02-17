@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddToUsersTable extends Migration
+class AddUser extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,10 @@ class AddToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            // $table->date('birthday')->after('password');
-            // $table->enum('gender', ['Male', 'Female'])->after('birthday');
-            // $table->integer('phone')->after('gender');
-            // $table->enum('is_admin', ['1', '0'])->after('phone');
+            $table->date('birthday')->after('password');
+            $table->enum('gender', ['Male', 'Female'])->after('birthday');
+            $table->integer('phone')->after('gender');
+            $table->enum('is_admin', ['1', '0'])->after('phone');
             $table->string('profile_pic')->after('phone');
         });
     }
