@@ -18,7 +18,7 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        $validatedData['password'] = Hash::make($request->password);
+        $validatedData['password'] = bcrypt($request->password);
 
         $user = ApiUser::create($validatedData);
 
@@ -35,16 +35,17 @@ class AuthController extends Controller
         ]);
         
         $email = $request->email;
-        $password = Hash::make($request->password);
-
-        $user = ApiUser::where(['email' => $email, 'password' => $password])->get();
         
-        if (!$user) {
+        $user = ApiUser::where('email', $email)->first();
+
+        $valid = Hash::check($request->password, $user['password']);
+        
+        if (!$valid) {
             return response(['message' => 'Invalid Credentials']);
+        }else {
+            $accessToken = $user->createToken('authToken')->accessToken;
         }
 
-        $accessToken = $user->createToken('authToken')->accessToken;
-
-        return response(['user' => auth()->user(), 'access_token' => $accessToken]);
+        return response(['user' => $user, 'access_token' => $accessToken]);
     }
 }

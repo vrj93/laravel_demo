@@ -16,7 +16,7 @@ class CEOController extends Controller
     public function index()
     {
         $ceos = CEO::all();
-        return response([ 'ceos' => json_encode($ceos), 'message' => 'Retrieved successfully'], 200);
+        return response([ 'ceos' => $ceos, 'message' => 'Retrieved successfully'], 200);
     }
 
     /**
@@ -29,19 +29,18 @@ class CEOController extends Controller
     {
         $data = $request->all();
 
-        $validator = $request->validate($data, [
+        $validator = $request->validate([
             'name' => 'required|max:255',
             'year' => 'required|max:255',
             'company_headquarters' => 'required|max:255',
             'what_company_does' => 'required'
         ]);
 
-        if($validator)
-        {
+        if($validator) {
             $ceo = CEO::create($data);
         }
         
-        return response([ 'ceo' => json_encode($ceo), 'message' => 'Created successfully'], 200);
+        return response([ 'ceo' => $ceo, 'message' => 'Created successfully'], 200);
     }
 
     /**
@@ -52,7 +51,7 @@ class CEOController extends Controller
      */
     public function show(CEO $ceo)
     {
-        return response([ 'ceo' => json_encode($ceo), 'message' => 'Retrieved successfully'], 200);
+        return response([ 'ceo' => $ceo, 'message' => 'Retrieved successfully'], 200);
     }
 
     /**
@@ -66,7 +65,7 @@ class CEOController extends Controller
     {
         $ceo->update($request->all());
 
-        return response([ 'ceo' => json_encode($ceo), 'message' => 'Retrieved successfully'], 200);
+        return response([ 'ceo' => $ceo, 'message' => 'Retrieved successfully'], 200);
     }
 
     /**
