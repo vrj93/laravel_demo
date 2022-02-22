@@ -42,7 +42,7 @@ class DashboardController extends Controller
             $profile_pic = $request->file;
             $fileName = time().'_'.$profile_pic->getClientOriginalName();
             $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
-            $profile_pic->move('/storage/'.$filePath, $fileName);
+            // $profile_pic->move('/storage/'.$filePath, $fileName);
             $user->profile_pic = $fileName;
             $user->save();
         }
@@ -51,7 +51,7 @@ class DashboardController extends Controller
             $profile_pic = $request->file;
             $fileName = time().'_'.$profile_pic->getClientOriginalName();
             $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
-            $profile_pic->move('/storage/'.$filePath, $fileName);
+            // $profile_pic->move('/storage/'.$filePath, $fileName);
             $user->profile_pic = $fileName;
             $user->save();
         }

@@ -76,7 +76,7 @@ class SignupController extends Controller
             $fileName = time().'_'.$profile_pic->getClientOriginalName();
             $filePath = $request->file('profile_pic')->storeAs('uploads', $fileName, 'public');
             $user->profile_pic = $fileName;
-            $profile_pic->move('/storage/'.$filePath, $fileName);
+            // $profile_pic->move('/storage/'.$filePath, $fileName);
         }
 
         if($user->save())
