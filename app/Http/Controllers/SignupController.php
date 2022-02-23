@@ -81,8 +81,8 @@ class SignupController extends Controller
 
         if($user->save())
         {
-            $user->assignRole('reader');
-            $user->givePermissionTo('read articles');
+            // $user->assignRole('reader');
+            // $user->givePermissionTo('read articles');
 
             PodcastProcessed::dispatch($email); //event and listner
             // event(new PodcastProcessed($request->email)); alternative way for event call.
