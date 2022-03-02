@@ -83,7 +83,10 @@ class PostController extends Controller
 
     public function search(Request $request)
     {
-        $result = Post::search($request->searchText)->get();
+        $email = session('email');
+        $user = User::where('email', $email)->first();
+        $result = Post::search($request->searchText)->where('user_id', $user->id)->get();
+
         return view('examples.searchpost')->with('searchResult', $result);
     }
 }
